@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>show page for logging in or registering</title>
+</head>
+<body>
+
+	<h1> {{ request.session.message }} </h1>
+
+	<h2> Welcome {{ request.session.user.first_name }} </h2>
+
+	
+	<h3><a href = "{% url 'book_app:add' %}"> Add book and review</a></h3>
+	<h3><a href = "{% url 'book_app:clear' %}"> Log out </a></h3>
+
+	<div id= "recent_book_reviews">
+		
+		<h3>Recent Book Reviews</h3>
+
+		{% if reviews %}
+
+			{% for review in reviews %}
+
+				<p><a href="{% url 'book_app:show' review.book.id %}"> {{ review.book.title }} </a></p>
+				<p> <a href="{% url 'users:user' review.user.id %}">{{ review.user.first_name }}</a> says: {{ review.review}}</p>
+         		<p> Posted: {{ review.created_at}}</p>
+         		<p>---------------------------------------------------------</p>
+
+			{% endfor %}
+
+		{% endif %}
+
+
+	</div>
+
+	<div id= "other_book_reviews">
+		
+		<h3>Other Books with Reviews</h3>
+
+		{% if books %}
+
+			{% for book in books %}
+
+				<p><a href="{% url 'book_app:show' book.id %}"> {{ book.title }} </a></p>
+
+			{% endfor %}
+
+		{% endif %}
+
+
+	</div>
+
+	
+
+</body>
+</html>

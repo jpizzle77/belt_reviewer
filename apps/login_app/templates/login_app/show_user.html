@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>show page for logging in or registering</title>
+</head>
+<body>
+
+	<h3><a href = "{% url 'book_app:index' %}"> Home </a></h3>
+	<h3><a href = "{% url 'book_app:add' %}"> Add book and review</a></h3>
+	<h3><a href = "{% url 'book_app:clear' %}"> Log out </a></h3>
+	
+	
+	<h2>User Alias: {{ user.first_name }} </h2>
+	<h2>Name: {{ user.first_name }} {{ user.last_name }}</h2>
+	<h2>Email: {{ user.email }}</h2>
+	<h2>Total Reviews: {{ user_count }}</h2>
+
+
+
+	<h2>Posted Reviews on the following books:</h2>
+
+	  {% if reviews %}
+         {% for review in reviews %}
+
+         	
+
+          
+       		{% if user.id == review.user_id %} 
+
+          <p>-----------------------------------------------------</p>
+          <p>Book: <a href ="{% url 'book_app:show' review.book.id %}">{{ review.book.title }}</a></p>
+        	{% endif %}
+        
+
+         {% endfor %}
+         {% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

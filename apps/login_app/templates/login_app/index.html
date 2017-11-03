@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login and Registration</title>
+    
+  </head>
+    <body>
+    <div id="wrapper">
+       
+        <h1> Register Here</h1>
+
+        {% if messages %}
+          {% for message in messages %}
+           <p>{{ message }} </p>
+          {% endfor %}
+        {% endif %}
+        
+        <form action="{% url 'login_app:register' %}" method='POST'>
+         {% csrf_token %}
+
+          <p><label for="first_name">First Name</label>
+          <input class="person" type='text' name='first_name' value= 'jason'></p>
+
+          <p><label for="last_name">Last Name</label>
+          <input class="person" type='text' name='last_name' value= 'bourne'></p>
+
+          <p><label for="Email">Email</label>
+          <input class="person" type='text' name='email' value= 'abc@abc.com'></p>
+
+          <p><label for="password">Password</label>
+          <input class="person" type='text' name='password' value= '1'></p>
+
+          <p><label for="confirm_password">Confirm Password</label>
+          <input class="person" type='text' name='confirm_password' value= '1'></p>
+
+          <input type="submit" value="Register!">
+
+         </form>
+         
+         <p></p>
+
+
+        <h1>Already Registrered? Log in below</h1>
+        <form action="{% url 'login_app:login' %}" method='POST'>
+        {% csrf_token %}
+
+          <input class="person" type='hidden' name='id' value= ''></p>
+
+          <p><label for="Email">Email</label>
+          <input class="person" type='text' name='email' value= 'abc@abc.com'></p>
+
+          <p><label for="password">Password</label>
+          <input class="person" type='text' name='password' value= '1'></p>
+
+        
+        <input type="submit" value="Login">
+
+
+
+
+      </div> <!-- END OF WRAPPER DIV                                  -->
+  </body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>show page for logging in or registering</title>
+</head>
+<body>
+
+	
+	<h3><a href = "{% url 'book_app:index' %}"> Home </a></h3>
+	<h3><a href = "{% url 'book_app:clear' %}"> Log out </a></h3>
+ 
+
+        <h1> Title: {{book.title}}</h1> 
+
+
+		<h2>Author: {{ author.name }}</h2>
+
+         <p>Reviews</p>
+
+        <div id= "add_review"> Add a review 
+        <form action="{% url 'book_app:review'  %}" method='POST'>
+         {% csrf_token %}
+          <input type="hidden" name="user_id" value = " {{ request.session.user.id }}">
+          <input type="hidden" name="book_id" value = "{{ request.session.book_id }}">
+		  
+          <textarea name="review">spirutal</textarea>
+          <p></p>
+           <select name="rating">
+			  <option value="1">1</option>
+			  <option value="2">2</option>
+			  <option value="3">3</option>
+			  <option value="4">4</option>
+			  <option value="5">5</option>
+			</select>
+			<p></p>
+         
+          
+          <input type="submit" value="Submit review!">
+
+
+
+         </form>
+
+       </div>
+
+
+
+         {% if reviews %}
+         {% for review in reviews %}
+
+         	
+
+          
+       		{% if book.id == review.book_id %} 
+
+          <p>-----------------------------------------------------</p>
+          <p>Rating : {{ review.rating }}</p>
+        
+       
+         <p> <a href="{% url 'users:user' review.user.id %}"> {{ review.user.first_name }}</a> says: {{ review.review}}</p>
+         <p> Posted: {{ review.created_at}}</p>
+
+         	{% endif %}
+        
+
+         {% endfor %}
+         {% endif %}
+
+	
+
+
+
+</body>
+</html>

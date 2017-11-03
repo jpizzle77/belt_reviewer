@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>show page for logging in or registering</title>
+</head>
+<body>
+
+	<h1> Add a new book title and review! </h1>
+ 
+
+        {% if messages %}
+          {% for message in messages %}
+           <p>{{ message }} </p>
+          {% endfor %}
+        {% endif %}
+
+        
+
+      
+        <form name ="name" action="{% url 'book_app:add'  %}" method='POST'>
+         {% csrf_token %}
+          <input type="hidden" name="user_id" value = " {{ request.session.user.id }}">
+          <input type="hidden" name="book_id" value = "">
+          <p><label for="title">Book Title</label>
+          <input class="person" type='text' name='title' value= 'power of now'></p>
+
+          	{% if authors %}
+              
+
+
+       
+              
+                  
+                      <label for ="name"> Choose from the list</label>
+                      <select name="name">
+                        {% for author in authors %}
+          			         <option value= "{{ author.name }}"> {{ author.name }}</option>
+
+                        {% endfor %}
+          			      </select>
+
+                       <p><label for="name">Or add an author</label>
+                      <input  type='text' name='name' value=  ></p>
+
+              
+              
+			     {% endif %}
+		
+         
+          
+          	
+           <!-- Two different ways to choose the rating. The select tag works great for a drop down bar. The input type ="number" lets you click on up/down arrows to choose number. Note: didnt work in windows edge-->
+
+           <label for ="rating"> Rating</label>
+           <select name="rating">
+        			  <option value="1">1</option>
+        			  <option value="2">2</option>
+        			  <option value="3">3</option>
+        			  <option value="4">4</option>
+        			  <option value="5">5</option>
+        		</select>
+
+          <p><label for="review">Review </label>
+          <textarea name="review">spirutal</textarea>
+         
+        <!--this code works for Google Chrome but not Windows Edge, where it lets you click on a number-->
+          <p><input type="number" name="quantity" min="1" max="5"> Stars</p>
+          
+          <p><input type="submit" value="Add book and review!"></p>
+
+
+
+         </form>
+      
+         
+         <p></p>
+
+	<h3><a href = "{% url 'book_app:add' %}"> Add book and review</a></h3>
+	<h3><a href = "{% url 'book_app:clear' %}"> Log out </a></h3>
+
+
+
+</body>
+</html>
